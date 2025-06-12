@@ -1,0 +1,7 @@
+body {
+  background-image: url("/assets/background.webp");
+  background-size: cover;       /* make the image cover the entire background */
+  background-repeat: no-repeat; /* don’t repeat the image */
+  background-position: center;  /* center the image */
+  background-attachment: fixed; /* keeps background fixed on scroll (optional) */
+}

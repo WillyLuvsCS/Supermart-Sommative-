@@ -1,3 +1,11 @@
+<% if notice %>
+  <p style="color: green;"><%= notice %></p>
+<% end %>
+
+<% if alert %>
+  <p style="color: red;"><%= alert %></p>
+<% end %>
+
 <p style="color: green"><%= notice %></p>
 
 <% content_for :title, "Categories" %>
@@ -14,3 +22,12 @@
 </div>
 
 <%= link_to "New category", new_category_path %>
+
+
+
+<%= form_with model: @invoice, url: invoices_path, local: true, html: { multipart: true } do |form| %>
+  <%= form.label :pdf_file, "Upload Invoice (PDF)" %><br>
+  <%= form.file_field :pdf_file, accept: 'application/pdf' %><br>
+  <%= form.submit "Upload Invoice" %>
+<% end %>
+

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "invoices/new"
+  get "invoices/create"
   get "order_items/index"
   get "suppliers/index"
   get "products/index"
@@ -23,4 +25,5 @@ Rails.application.routes.draw do
   resources :order_items
   resources :products
   resources :stores
+  resources :invoices, only: [:new, :create]
 end
