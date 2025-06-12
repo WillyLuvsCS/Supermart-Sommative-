@@ -1,12 +1,12 @@
 class StoresController < ApplicationController
-  before_action :set_store, only: %i[ show edit update destroy ]
+  before_action :set_store, only: %i[show edit update destroy]
 
-  # GET /stores or /stores.json
+  # GET /stores
   def index
     @stores = Store.all
   end
 
-  # GET /stores/1 or /stores/1.json
+  # GET /stores/1
   def show
   end
 
@@ -19,52 +19,39 @@ class StoresController < ApplicationController
   def edit
   end
 
-  # POST /stores or /stores.json
+  # POST /stores
   def create
     @store = Store.new(store_params)
 
-    respond_to do |format|
-      if @store.save
-        format.html { redirect_to @store, notice: "Store was successfully created." }
-        format.json { render :show, status: :created, location: @store }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @store.errors, status: :unprocessable_entity }
-      end
+    if @store.save
+      redirect_to @store, notice: "Store was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /stores/1 or /stores/1.json
+  # PATCH/PUT /stores/1
   def update
-    respond_to do |format|
-      if @store.update(store_params)
-        format.html { redirect_to @store, notice: "Store was successfully updated." }
-        format.json { render :show, status: :ok, location: @store }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @store.errors, status: :unprocessable_entity }
-      end
+    if @store.update(store_params)
+      redirect_to @store, notice: "Store was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /stores/1 or /stores/1.json
+  # DELETE /stores/1
   def destroy
-    @store.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to stores_path, status: :see_other, notice: "Store was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    @store.destroy
+    redirect_to stores_path, notice: "Store was successfully destroyed.", status: :see_other
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_store
-      @store = Store.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def store_params
-      params.expect(store: [ :name, :location ])
-    end
+  def set_store
+    @store = Store.find(params[:id])
+  end
+
+  def store_params
+    params.require(:store).permit(:name, :location)
+  end
 end
