@@ -1,2 +1,16 @@
-<h1>Suppliers#index</h1>
-<p>Find me in app/views/suppliers/index.html.erb</p>
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Suppliers" %>
+
+<h1>Suppliers</h1>
+
+<div id="suppliers">
+  <% @suppliers.each do |supplier| %>
+    <%= render supplier %>
+    <p>
+      <%= link_to "Show this supplier", supplier %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New supplier", new_supplier_path %>
